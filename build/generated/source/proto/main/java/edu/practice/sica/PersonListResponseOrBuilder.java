@@ -11,7 +11,7 @@ public interface PersonListResponseOrBuilder extends
   /**
    * <code>repeated .PersonResponse persons = 1;</code>
    */
-  java.util.List<edu.practice.sica.PersonResponse>
+  java.util.List<edu.practice.sica.PersonResponse> 
       getPersonsList();
   /**
    * <code>repeated .PersonResponse persons = 1;</code>
@@ -24,7 +24,7 @@ public interface PersonListResponseOrBuilder extends
   /**
    * <code>repeated .PersonResponse persons = 1;</code>
    */
-  java.util.List<? extends edu.practice.sica.PersonResponseOrBuilder>
+  java.util.List<? extends edu.practice.sica.PersonResponseOrBuilder> 
       getPersonsOrBuilderList();
   /**
    * <code>repeated .PersonResponse persons = 1;</code>

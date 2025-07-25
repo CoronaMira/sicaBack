@@ -228,7 +228,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.DeleteResponse.class, edu.practice.sica.DeleteResponse.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.DeleteResponse.newBuilder()
+    // Construct using edu.practice.sica.DeleteResponse.newBuilder()
     private Builder() {
 
     }

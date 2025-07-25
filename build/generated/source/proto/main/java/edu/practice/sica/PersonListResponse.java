@@ -54,7 +54,7 @@ private static final long serialVersionUID = 0L;
    * <code>repeated .PersonResponse persons = 1;</code>
    */
   @java.lang.Override
-  public java.util.List<? extends edu.practice.sica.PersonResponseOrBuilder>
+  public java.util.List<? extends edu.practice.sica.PersonResponseOrBuilder> 
       getPersonsOrBuilderList() {
     return persons_;
   }
@@ -260,7 +260,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.PersonListResponse.class, edu.practice.sica.PersonListResponse.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.PersonListResponse.newBuilder()
+    // Construct using edu.practice.sica.PersonListResponse.newBuilder()
     private Builder() {
 
     }
@@ -650,7 +650,7 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .PersonResponse persons = 1;</code>
      */
-    public java.util.List<? extends edu.practice.sica.PersonResponseOrBuilder>
+    public java.util.List<? extends edu.practice.sica.PersonResponseOrBuilder> 
          getPersonsOrBuilderList() {
       if (personsBuilder_ != null) {
         return personsBuilder_.getMessageOrBuilderList();
@@ -676,12 +676,12 @@ private static final long serialVersionUID = 0L;
     /**
      * <code>repeated .PersonResponse persons = 1;</code>
      */
-    public java.util.List<edu.practice.sica.PersonResponse.Builder>
+    public java.util.List<edu.practice.sica.PersonResponse.Builder> 
          getPersonsBuilderList() {
       return getPersonsFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        edu.practice.sica.PersonResponse, edu.practice.sica.PersonResponse.Builder, edu.practice.sica.PersonResponseOrBuilder>
+        edu.practice.sica.PersonResponse, edu.practice.sica.PersonResponse.Builder, edu.practice.sica.PersonResponseOrBuilder> 
         getPersonsFieldBuilder() {
       if (personsBuilder_ == null) {
         personsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<

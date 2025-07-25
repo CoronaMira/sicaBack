@@ -271,7 +271,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.UpdatePersonRequest.class, edu.practice.sica.UpdatePersonRequest.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.UpdatePersonRequest.newBuilder()
+    // Construct using edu.practice.sica.UpdatePersonRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -588,7 +588,7 @@ private static final long serialVersionUID = 0L;
      * <code>.PersonRequest person = 2;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        edu.practice.sica.PersonRequest, edu.practice.sica.PersonRequest.Builder, edu.practice.sica.PersonRequestOrBuilder>
+        edu.practice.sica.PersonRequest, edu.practice.sica.PersonRequest.Builder, edu.practice.sica.PersonRequestOrBuilder> 
         getPersonFieldBuilder() {
       if (personBuilder_ == null) {
         personBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<

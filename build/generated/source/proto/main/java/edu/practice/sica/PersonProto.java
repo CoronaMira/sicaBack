@@ -84,8 +84,8 @@ public final class PersonProto {
       "ty\032\023.PersonListResponse\0225\n\014UpdatePerson\022" +
       "\024.UpdatePersonRequest\032\017.PersonResponse\0225" +
       "\n\014DeletePerson\022\024.DeletePersonRequest\032\017.D" +
-      "eleteResponseB0\n\037edu.practice.databaseco" +
-      "nnectionB\013PersonProtoP\001b\006proto3"
+      "eleteResponseB\"\n\021edu.practice.sicaB\013Pers" +
+      "onProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

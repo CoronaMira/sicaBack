@@ -578,7 +578,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.PersonResponse.class, edu.practice.sica.PersonResponse.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.PersonResponse.newBuilder()
+    // Construct using edu.practice.sica.PersonResponse.newBuilder()
     private Builder() {
 
     }

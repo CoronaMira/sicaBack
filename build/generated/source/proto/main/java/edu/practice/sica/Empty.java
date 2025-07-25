@@ -205,7 +205,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.Empty.class, edu.practice.sica.Empty.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.Empty.newBuilder()
+    // Construct using edu.practice.sica.Empty.newBuilder()
     private Builder() {
 
     }

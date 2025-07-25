@@ -228,7 +228,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.GetPersonRequest.class, edu.practice.sica.GetPersonRequest.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.GetPersonRequest.newBuilder()
+    // Construct using edu.practice.sica.GetPersonRequest.newBuilder()
     private Builder() {
 
     }

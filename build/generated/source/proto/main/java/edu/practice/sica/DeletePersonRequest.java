@@ -228,7 +228,7 @@ private static final long serialVersionUID = 0L;
               edu.practice.sica.DeletePersonRequest.class, edu.practice.sica.DeletePersonRequest.Builder.class);
     }
 
-    // Construct using edu.practice.databaseconnection.DeletePersonRequest.newBuilder()
+    // Construct using edu.practice.sica.DeletePersonRequest.newBuilder()
     private Builder() {
 
     }

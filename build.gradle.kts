@@ -31,6 +31,8 @@ dependencies {
 	implementation("io.grpc:grpc-stub:1.63.0")
 	implementation("com.google.protobuf:protobuf-java:3.25.3")
 	implementation ("javax.annotation:javax.annotation-api:1.3.2")
+	implementation ("org.flywaydb:flyway-mysql")
+
 
 	runtimeOnly("com.mysql:mysql-connector-j")
 
