@@ -32,6 +32,8 @@ dependencies {
 	implementation("com.google.protobuf:protobuf-java:3.25.3")
 	implementation ("javax.annotation:javax.annotation-api:1.3.2")
 	implementation ("org.flywaydb:flyway-mysql")
+	implementation("com.google.zxing:core:3.5.3")
+	implementation("com.google.zxing:javase:3.3.0")
 
 
 	runtimeOnly("com.mysql:mysql-connector-j")

@@ -34,7 +34,7 @@ public class Student {
     private String imagenUrl;
 
     @Column(name = "IMAGEN")
-    @Lob // Para campos grandes como LONGBLOB
+    @Lob
     private byte[] imagen;
 
     @Column(name = "TURNO")
