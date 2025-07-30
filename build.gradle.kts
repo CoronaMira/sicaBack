@@ -35,6 +35,9 @@ dependencies {
 	implementation("com.google.zxing:core:3.5.3")
 	implementation("com.google.zxing:javase:3.3.0")
 
+	implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
+
 
 	runtimeOnly("com.mysql:mysql-connector-j")
 
