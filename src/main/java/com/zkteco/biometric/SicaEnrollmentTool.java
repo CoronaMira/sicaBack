@@ -1,11 +1,15 @@
 package com.zkteco.biometric;
 
+import edu.practice.sica.entity.Fingerprint;
+import edu.practice.sica.service.FingerprintService;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -14,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 public class SicaEnrollmentTool extends JFrame{
+    private final FingerprintService fingerprintService;
     JButton btnOpen = null;
     JButton btnEnroll = null;
     JButton btnVerify = null;
@@ -58,6 +63,10 @@ public class SicaEnrollmentTool extends JFrame{
     private long mhDevice = 0;
     private long mhDB = 0;
     private WorkThread workThread = null;
+
+    public SicaEnrollmentTool(FingerprintService fingerprintService) {
+        this.fingerprintService = fingerprintService;
+    }
 
     public void launchFrame(){
         this.setLayout (null);
@@ -563,7 +572,26 @@ public class SicaEnrollmentTool extends JFrame{
                     System.arraycopy(regTemp, 0, lastRegTemp, 0, cbRegTemp);
                     String strBase64 = FingerprintSensorEx.BlobToBase64(regTemp, cbRegTemp);
                     //Base64 Template
-                    textArea.setText("enroll succ");
+                    textArea.setText("Enrollment successful locally. Saving to database...");
+                    String studentIdStr = "1";
+
+                    try {
+                        int studentId = Integer.parseInt(studentIdStr);
+
+                        // 3. Crea la entidad y llama al servicio DIRECTAMENTE
+                        Fingerprint fingerprint = new Fingerprint();
+                        fingerprint.setStudentId(studentId);
+                        fingerprint.setFingerprintTemplate(regTemp);
+                        fingerprint.setRegistrationDate(LocalDateTime.now());
+
+                        // Llama al método del servicio que inyectamos
+                        fingerprintService.createFingerprint(fingerprint);
+
+                        textArea.setText("Fingerprint saved successfully for student ID: " + studentId);
+
+                    } catch (Exception e) {
+                        textArea.setText("ERROR saving to database: " + e.getMessage());
+                    }
                 } else {
                     textArea.setText("enroll fail, error code=" + ret);
                 }
@@ -612,6 +640,6 @@ public class SicaEnrollmentTool extends JFrame{
     }
 
     public static void main(String[] args) {
-        new SicaEnrollmentTool().launchFrame();
+        //new SicaEnrollmentTool().launchFrame();
     }
 }
