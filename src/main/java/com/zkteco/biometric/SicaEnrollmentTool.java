@@ -66,6 +66,7 @@ public class SicaEnrollmentTool extends JFrame{
 
     public SicaEnrollmentTool(FingerprintService fingerprintService) {
         this.fingerprintService = fingerprintService;
+        launchFrame();
     }
 
     public void launchFrame(){
@@ -565,35 +566,37 @@ public class SicaEnrollmentTool extends JFrame{
                 _retLen[0] = 2048;
                 byte[] regTemp = new byte[_retLen[0]];
 
-                if (0 == (ret = FingerprintSensorEx.DBMerge(mhDB, regtemparray[0], regtemparray[1], regtemparray[2], regTemp, _retLen)) &&
-                        0 == (ret = FingerprintSensorEx.DBAdd(mhDB, iFid, regTemp))) {
-                    iFid++;
-                    cbRegTemp = _retLen[0];
-                    System.arraycopy(regTemp, 0, lastRegTemp, 0, cbRegTemp);
-                    String strBase64 = FingerprintSensorEx.BlobToBase64(regTemp, cbRegTemp);
-                    //Base64 Template
-                    textArea.setText("Enrollment successful locally. Saving to database...");
-                    String studentIdStr = "1";
+                if (0 == (ret = FingerprintSensorEx.DBMerge(mhDB, regtemparray[0], regtemparray[1], regtemparray[2], regTemp, _retLen))) {
+
+                    // Se ha eliminado la llamada a "FingerprintSensorEx.DBAdd(...)" de la condición.
+                    // El guardado en la BD en memoria del SDK no es necesario,
+                    // ya que nuestra base de datos principal es la de Spring.
+
+                    textArea.setText("Local enrollment successful.\nSaving to database...");
+
+                    String studentIdStr = "1"; // OJO: Aún está fijo a "1". Debes obtenerlo del JTextField.
 
                     try {
                         int studentId = Integer.parseInt(studentIdStr);
 
-                        // 3. Crea la entidad y llama al servicio DIRECTAMENTE
+                        // Crea la entidad y llama al servicio para guardar en la BD principal
                         Fingerprint fingerprint = new Fingerprint();
                         fingerprint.setStudentId(studentId);
-                        fingerprint.setFingerprintTemplate(regTemp);
+                        fingerprint.setFingerprintData(regTemp);
                         fingerprint.setRegistrationDate(LocalDateTime.now());
+                        fingerprint.setFinger("thumb");
 
-                        // Llama al método del servicio que inyectamos
                         fingerprintService.createFingerprint(fingerprint);
 
-                        textArea.setText("Fingerprint saved successfully for student ID: " + studentId);
+                        textArea.setText("Fingerprint SAVED successfully to database for student ID: " + studentId);
 
                     } catch (Exception e) {
+                        // Muestra el error específico de la base de datos
+                        System.out.println("ERROR saving to database: " + e.getMessage());
                         textArea.setText("ERROR saving to database: " + e.getMessage());
                     }
                 } else {
-                    textArea.setText("enroll fail, error code=" + ret);
+                    textArea.setText("Enrollment failed, error merging templates. Code: " + ret);
                 }
                 bRegister = false;
             } else {

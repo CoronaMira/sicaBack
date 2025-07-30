@@ -12,7 +12,12 @@ public class Fingerprint{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private byte[] fingerprintTemplate;
+    @Column(name = "fingerprint_data")
+    private byte[] fingerprintData;
+    @Column(name = "finger")
+    private String finger;
+    @Column(name = "registration_date")
     private LocalDateTime registrationDate;
+    @Column(name = "student_id")
     private Integer studentId;
 }
