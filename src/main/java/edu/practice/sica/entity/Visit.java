@@ -40,4 +40,7 @@ public class Visit {
 
     @Transient
     private String qrCodeBase64;
+
+    @Transient
+    private String visitorPhotoBase64;
 }

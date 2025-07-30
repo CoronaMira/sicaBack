@@ -1,6 +1,7 @@
 package edu.practice.sica.repository;
 
 import edu.practice.sica.entity.Visit;
+import edu.practice.sica.entity.enums.VisitStatus;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -9,8 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class VisitRepository {
@@ -37,6 +40,25 @@ public class VisitRepository {
         List<Visit> result = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Visit.class), qrFolio);
         return result.stream().findFirst();
     }
+    public List<Visit> findByStatus(VisitStatus visitStatus) {
+        String sql = "SELECT * FROM visits WHERE status = ?";
+        List<Visit> result = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Visit.class), visitStatus.name());
+        return result.stream().toList();
+    }
+    public List<Visit> findByDate(LocalDateTime startDate,LocalDateTime endDate ) {
+        String sql = "SELECT * FROM visits WHERE visit_datetime >= ? AND  visit_datetime <= ?";
+        List<Visit> result = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Visit.class), startDate, endDate);
+        return result.stream().toList();
+    }
+
+
+    public List<Visit> findByName(String name) {
+        String sql = "SELECT * FROM visits WHERE  visitor_name  like ? ";
+        String nameWithWildcards = "%" + name + "%";
+        List<Visit> result = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Visit.class),nameWithWildcards);
+        return result.stream().toList();
+    }
+
 
     public long save(Visit visit) {
         String sql = """

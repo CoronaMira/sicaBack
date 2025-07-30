@@ -1,7 +1,6 @@
 create table api_keys
 (
-    id         bigint auto_increment
-        primary key,
+    id         bigint auto_increment primary key,
     name       varchar(100)                         not null,
     api_key    varchar(255)                         not null,
     active     tinyint(1) default 1                 null,
@@ -10,17 +9,15 @@ create table api_keys
 
 create table catalogos
 (
-    ID          int auto_increment
-        primary key,
-    DESCRIPCION varchar(200) not null,
-    TIPO        varchar(50)  not null,
-    ID_PADRE    int          null
+    ID          int auto_increment primary key,
+    DESCRIPTION varchar(200) not null,
+    TYPE       varchar(50)  not null,
+    ID_ROOT    int          null
 );
 
 create table estudiantes
 (
-    ID             int auto_increment
-        primary key,
+    ID             int auto_increment primary key,
     NOMBRE         varchar(100)                        not null,
     EMAIL          varchar(100)                        null,
     EDAD           int                                 not null,
@@ -35,8 +32,7 @@ create table estudiantes
 
 create table person
 (
-    id          bigint auto_increment
-        primary key,
+    id          bigint auto_increment primary key,
     first_name  varchar(100) not null,
     last_name   varchar(100) not null,
     middle_name varchar(100) null,
