@@ -1,5 +1,6 @@
 package edu.practice.sica.entity;
 
+import edu.practice.sica.entity.enums.EventTypeEnum;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,4 +9,5 @@ import java.time.LocalDate;
 public class AbsenceDto {
     private LocalDate date;
     private Long personId;
+    private EventTypeEnum eventType;
 }
