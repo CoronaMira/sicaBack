@@ -33,7 +33,14 @@ public class IncidentRepository {
               -- 2. Evalúa si existe un registro de asistencia para el día.
               --    Si el conteo de registros es mayor a 0, se marca como ATTENDANCE.
               --    De lo contrario, se marca como ABSENCE.
-              CASE WHEN COUNT(ar.id) > 0 THEN 'ATTENDANCE' ELSE 'ABSENCE' END AS event_type
+              CASE
+                  -- 1. Si para una fecha existe al menos un registro de 'JUSTIFIED_ABSENCE', se marca como tal.
+                  WHEN SUM(CASE WHEN ar.record_type = 'JUSTIFIED_ABSENCE' THEN 1 ELSE 0 END) > 0 THEN 'JUSTIFIED_ABSENCE'
+                  -- 2. Si no, si existe cualquier otro tipo de registro (una asistencia normal), se marca como ATTENDANCE.
+                  WHEN COUNT(ar.id) > 0 THEN 'ATTENDANCE'\s
+                  -- 3. Si no hay ningún registro para esa fecha, es una falta.
+                  ELSE 'ABSENCE'
+              END AS event_type
             FROM
               dates d
             LEFT JOIN
