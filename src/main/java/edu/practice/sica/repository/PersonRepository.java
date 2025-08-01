@@ -33,8 +33,8 @@ public class PersonRepository {
 
     public int save(Person person) {
         String sql = """
-            INSERT INTO person (first_name, last_name, middle_name, type, enrollment, degree, shift)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO person (first_name, last_name, middle_name, type, enrollment, degree, shift, entry_time, departure_time )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -47,6 +47,9 @@ public class PersonRepository {
             ps.setString(5, person.getEnrollment());
             ps.setString(6, person.getDegree());
             ps.setString(7, person.getShift());
+            ps.setString(8, person.getEntryTime());
+            ps.setString(9, person.getDepartureTime());
+
             return ps;
         }, keyHolder);
 
@@ -58,7 +61,7 @@ public class PersonRepository {
     public int update(Long id, Person person) {
         String sql = """
             UPDATE person SET first_name = ?, last_name = ?, middle_name = ?, type = ?, 
-            enrollment = ?, degree = ?, shift = ? WHERE id = ?
+            enrollment = ?, degree = ?, shift = ?, entry_time = ?, departure_time = ?,  WHERE id = ?
         """;
         return jdbcTemplate.update(sql,
                 person.getFirstName(),

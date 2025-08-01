@@ -39,6 +39,9 @@ create table person
     type        varchar(50)  null,
     enrollment  varchar(50)  null,
     degree      varchar(100) null,
-    shift       varchar(50)  null
+    shift       varchar(50)  null,
+    entry_time  time    not null,
+    departure_time time not null
 );
+
 

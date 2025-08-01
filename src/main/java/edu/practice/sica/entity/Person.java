@@ -31,4 +31,10 @@ public class Person {
 
     @Column(name = "shift")
     private String shift;
+
+    @Column(name = "entry_time")
+    private String entryTime;
+
+    @Column(name = "departure_time")
+    private String departureTime;
 }
