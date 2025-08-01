@@ -40,8 +40,8 @@ create table person
     enrollment  varchar(50)  null,
     degree      varchar(100) null,
     shift       varchar(50)  null,
-    entry_time  time    not null,
-    departure_time time not null
+    entry_time  time         null,
+    departure_time time      null
 );
 
 
