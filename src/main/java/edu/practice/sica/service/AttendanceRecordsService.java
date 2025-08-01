@@ -24,7 +24,8 @@ public class AttendanceRecordsService {
     }
 
     public AttendanceRecords create(AttendanceRecords record) {
-        return attendanceRecordRepository.save(record);
+
+        return (record.getRecordTimestamp() != null) ?  attendanceRecordRepository.justifAbsence(record) : attendanceRecordRepository.save(record);
     }
 
     public AttendanceRecords update(Long id, AttendanceRecords updatedRecord) {

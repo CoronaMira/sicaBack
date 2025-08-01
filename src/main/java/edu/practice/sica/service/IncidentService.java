@@ -20,13 +20,13 @@ public class IncidentService {
     }
 
 
-    public IncidentsSummary getIncidents(Long personId, LocalDate startDate, LocalDate endDate, LocalTime lateThresholdTime) {
+    public IncidentsSummary getIncidents(Long personId, LocalDate startDate, LocalDate endDate) {
         if (startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
         }
 
         List<AbsenceDto> absences = incidentRepository.findAbsencesByPersonAndDateRange(personId, startDate, endDate);
-        List<TardinessDto> tardinessRecords = incidentRepository.findTardinessByPersonAndDateRange(personId, startDate, endDate, lateThresholdTime);
+        List<TardinessDto> tardinessRecords = incidentRepository.findTardinessByPersonAndDateRange(personId, startDate, endDate);
 
         return IncidentsSummary.builder().absences(absences).tardinessRecords(tardinessRecords).build();
     }
@@ -38,10 +38,10 @@ public class IncidentService {
         return incidentRepository.findAbsencesByPersonAndDateRange(personId, startDate, endDate);
     }
 
-    public List<TardinessDto> getTardinessRecords(Long personId, LocalDate startDate, LocalDate endDate, LocalTime lateThresholdTime) {
+    public List<TardinessDto> getTardinessRecords(Long personId, LocalDate startDate, LocalDate endDate) {
         if (startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha de fin.");
         }
-        return incidentRepository.findTardinessByPersonAndDateRange(personId, startDate, endDate, lateThresholdTime);
+        return incidentRepository.findTardinessByPersonAndDateRange(personId, startDate, endDate);
     }
 }

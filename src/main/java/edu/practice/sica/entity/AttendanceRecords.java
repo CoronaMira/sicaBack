@@ -1,5 +1,6 @@
 package edu.practice.sica.entity;
 
+import edu.practice.sica.entity.enums.RecordType;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public class AttendanceRecords {
     private LocalDateTime recordTimestamp;
 
     @Column(name = "record_type", nullable = false, length = 20)
-    private String recordType;
+    private RecordType recordType;
 
     @Column(name = "device_id", length = 100)
     private String deviceId;

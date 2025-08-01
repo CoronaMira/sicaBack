@@ -1,6 +1,7 @@
 package edu.practice.sica.repository;
 
 import edu.practice.sica.entity.AttendanceRecords;
+import edu.practice.sica.entity.enums.RecordType;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,7 +28,7 @@ public class AttendanceRecordsRepository {
         record.setId(rs.getLong("id"));
         record.setPersonId(rs.getLong("person_id"));
         record.setRecordTimestamp(rs.getTimestamp("record_timestamp").toLocalDateTime());
-        record.setRecordType(rs.getString("record_type"));
+        record.setRecordType(RecordType.valueOf(rs.getString("record_type")));
         record.setDeviceId(rs.getString("device_id"));
         record.setGate(rs.getString("gate"));
         record.setStatus(rs.getString("status"));
@@ -59,10 +60,30 @@ public class AttendanceRecordsRepository {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, record.getPersonId());
-            ps.setString(2, record.getRecordType());
+            ps.setString(2, record.getRecordType().name());
             ps.setString(3, record.getDeviceId());
             ps.setString(4, record.getGate());
             ps.setString(5, record.getStatus());
+
+            return ps;
+        }, keyHolder);
+
+        long newId = Objects.requireNonNull(keyHolder.getKey()).longValue();
+        record.setId(newId);
+        return record;
+    }
+    public AttendanceRecords justifAbsence(AttendanceRecords record) {
+        String sql = "INSERT INTO attendance_records (person_id, record_type, device_id, gate, status, record_timestamp ) VALUES (?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(1, record.getPersonId());
+            ps.setString(2, record.getRecordType().name());
+            ps.setString(3, record.getDeviceId());
+            ps.setString(4, record.getGate());
+            ps.setString(5, record.getStatus());
+            ps.setString(6, record.getRecordTimestamp().toString());
 
             return ps;
         }, keyHolder);

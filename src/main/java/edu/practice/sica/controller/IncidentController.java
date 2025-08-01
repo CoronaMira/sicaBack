@@ -26,10 +26,9 @@ public class IncidentController {
     public ResponseEntity<IncidentsSummary> getIncidentsSummary(
             @PathVariable Long personId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime lateThresholdTime) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
-        IncidentsSummary summary = incidentService.getIncidents(personId, startDate, endDate, lateThresholdTime);
+        IncidentsSummary summary = incidentService.getIncidents(personId, startDate, endDate);
         return ResponseEntity.ok(summary);
     }
 
@@ -48,10 +47,9 @@ public class IncidentController {
     public ResponseEntity<List<TardinessDto>> getTardinessRecords(
             @PathVariable Long personId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime lateThresholdTime) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
-        List<TardinessDto> tardinessRecords = incidentService.getTardinessRecords(personId, startDate, endDate, lateThresholdTime);
+        List<TardinessDto> tardinessRecords = incidentService.getTardinessRecords(personId, startDate, endDate);
         return ResponseEntity.ok(tardinessRecords);
     }
 }

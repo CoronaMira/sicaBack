@@ -57,36 +57,40 @@ public class IncidentRepository {
         );
     }
 
-    public List<TardinessDto> findTardinessByPersonAndDateRange(Long personId, LocalDate startDate, LocalDate endDate, LocalTime lateThresholdTime) {
+    public List<TardinessDto> findTardinessByPersonAndDateRange(Long personId, LocalDate startDate, LocalDate endDate) {
+        // The SQL query now joins with the 'person' table and adds a 10-minute interval.
         String sql = """
             SELECT
-                person_id,
-                MIN(record_timestamp) AS arrival_time
+                ar.person_id,
+                MIN(ar.record_timestamp) AS arrival_time
             FROM
-                attendance_records
+                attendance_records ar
+            JOIN
+                person p ON ar.person_id = p.id
             WHERE
-                person_id = ?
-                AND record_type = 'ENTRADA' -- Asumimos 'ENTRADA' como tipo de registro de ingreso
-                AND record_timestamp >= ? -- Fecha y hora de inicio del rango
-                AND record_timestamp < ?  -- Fecha y hora de fin del rango
+                ar.person_id = ?
+                AND ar.record_type = 'ENTRY' -- Assuming 'ENTRY' is the check-in type
+                AND ar.record_timestamp >= ?  -- Start of the date range
+                AND ar.record_timestamp < ?   -- End of the date range
             GROUP BY
-                person_id, DATE(record_timestamp)
+                ar.person_id, DATE(ar.record_timestamp), p.entry_time
             HAVING
-                TIME(MIN(record_timestamp)) > ?
+                TIMEDIFF(TIME(MIN(ar.record_timestamp)), p.entry_time) > '00:10:00'
             ORDER BY
                 arrival_time;
             """;
 
         LocalDateTime startRange = startDate.atStartOfDay();
+        // The end of the range is the start of the next day to include the full end date.
         LocalDateTime endRange = endDate.plusDays(1).atStartOfDay();
 
+        // The lateThresholdTime parameter is no longer needed.
         return jdbcTemplate.query(
                 sql,
                 new BeanPropertyRowMapper<>(TardinessDto.class),
                 personId,
                 startRange,
-                endRange,
-                lateThresholdTime
+                endRange
         );
     }
 }
