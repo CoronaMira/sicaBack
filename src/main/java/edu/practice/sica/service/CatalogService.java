@@ -17,8 +17,9 @@ public class CatalogService {
     public CatalogService(CatalogRepository catalogRepository) {
         this.catalogRepository = catalogRepository;
     }
-    public List<Catalog> findAll(CatalogEnum catalogEnum) {
-        return catalogRepository.findByType(catalogEnum);
+
+    public List<Catalog> findAll(CatalogEnum catalogEnum,String idFather) {
+        return (idFather != null) ? catalogRepository.findByTypeAndFather(catalogEnum,idFather) : catalogRepository.findByType(catalogEnum);
 
     }
 

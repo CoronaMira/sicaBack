@@ -27,8 +27,8 @@ public class CatalogController {
         this.catalogService = catalogService;
     }
     @GetMapping
-    public ResponseEntity<List<Catalog>> getAll(@RequestParam(required = true) String type) {
-        List<Catalog> catalogs = catalogService.findAll(CatalogEnum.valueOf(type));
+    public ResponseEntity<List<Catalog>> getAll(@RequestParam(required = true) String type,@RequestParam(required = false) String idFather) {
+        List<Catalog> catalogs = catalogService.findAll(CatalogEnum.valueOf(type),idFather);
         return ResponseEntity.ok(catalogs);
     }
 
